@@ -6,8 +6,7 @@ indexdir: "ref/bt2Index/"
 
 # Reference files
 reference:
-    version: GRCh38
-    seqs:
+    GRCh38:
         chr01: ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.1.fa.gz
         chr02: ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.2.fa.gz
         chr03: ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.3.fa.gz
