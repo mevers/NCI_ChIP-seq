@@ -38,20 +38,19 @@ reference:
 # ChIPsim
 ChIPsim:
     cmd: "Rscript scripts/simulate_reads.R"
+    nReps: 3
     ChIP:
         name: "TFChip"
         Pbind_given_back: 0.05
         Pback_given_back: 0.95
         EF: 5
         nReads: 1e7
-        nReps: 3
     input:
         name: "input"
         Pbind_given_back: 0
         Pback_given_back: 1
         EF: 5
         nReads: 1e7
-        nReps: 3
 
 
 # bowtie2-build parameters
