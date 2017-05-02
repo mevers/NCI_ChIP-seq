@@ -1,6 +1,12 @@
 #!/bin/bash
 
-export $snakemake_bin_path="/short/rl2/miniconda3/envs/snakemake/bin/"
+export cluster_config="cluster.yaml"
+
+if uname -a | grep "raijin"
+	then
+		export PATH="/short/rl2/miniconda3/envs/snakemake/bin/":$PATH;
+		export cluster_config="raijin.yaml"
+fi
 
 $snakemake_bin_path/snakemake --dag | dot -Tpdf > dag.pdf
 $snakemake_bin_path/snakemake --rulegraph | dot -Tpdf > rulegraph.pdf
@@ -15,5 +21,5 @@ $snakemake_bin_path/snakemake -p --configfile config.yaml \
                           	-l h_vmem={cluster.h_vmem} \
                           	-o {cluster.outstream} \
                           	-e {cluster.errorstream}" \
-          			--cluster-config cluster.yaml
+          			--cluster-config $cluster_config
 	  
