@@ -1,3 +1,0 @@
-
-            bowtie2-build ref/hg38/hg38.fa ref/hg38/hg38 > logs/bowtie2-build_hg38.log
-        
