@@ -1,5 +1,5 @@
-*.pdf
-*.log
+*pdf
+*log
 # Reference sequences
 ref
 

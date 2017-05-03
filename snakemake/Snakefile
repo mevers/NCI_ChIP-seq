@@ -43,17 +43,31 @@ FASTAS = expand("{refdir}/{version}/{chr}.fa",
 # Target: bowtie2 index file
 BTINDEX = expand("{indexdir}/{index}.1.bt2",
     indexdir = config["indexdir"],
-    index = [x \
-        for x in config["reference"].keys()])
+    index = [x for x in config["reference"].keys()])
 
 # Target: FASTQ files
-FASTQ = expand(join(config["rawdir"], "simul", "{path}/reads_{simName}_rep{idxRep}.fastq"), \
-    path = [x + "/" + y \
-        for x in config["reference"].keys() \
-            for y in config["reference"][x].keys()],
-    simName = ["TFChIP"],
-    idxRep = range(1, config["ChIPsim"]["nReps"] + 1))
+# FASTQ = expand(join(config["rawdir"], "simul", "{path}/reads_{simName}_rep{idxRep}.fastq"), \
+#     path = [x + "/" + y \
+#         for x in config["reference"].keys() \
+#             for y in config["reference"][x].keys()],
+#     simName = ["TFChIP"],
+#     idxRep = range(1, config["ChIPsim"]["nReps"] + 1))
 
+FASTQ_CHIP = expand(join(config["rawdir"],
+            "simul/{version}/{chr}/reads_{ID}_rep{iRep}_{pair}.fastq.gz"),
+            version = "GRCh38",
+            chr = [ y for x in config["reference"].keys() for y in config["reference"][x].keys()],
+            ID = config["ChIPsim"]["ChIP"]["name"],
+            iRep = range(1, config["ChIPsim"]["ChIP"]["nReps"] + 1),
+            pair = ["R1", "R2"])
+
+FASTQ_INPUT =  expand(join(config["rawdir"], \
+            "simul/{version}/{chr}/reads_{ID}_rep{iRep}_{pair}.fastq.gz"),
+            version = "GRCh38",
+            chr = [ y for x in config["reference"].keys() for y in config["reference"][x].keys()],
+            ID = config["ChIPsim"]["input"]["name"],
+            iRep = range(1, config["ChIPsim"]["input"]["nReps"] + 1),
+            pair = ["R1", "R2"])
 #######################################################
 ###################### Includes #######################
 #######################################################
@@ -70,4 +84,6 @@ include: "rules/fastq.rules"
 rule all:
     input:
         FASTAS,
-        BTINDEX
+        BTINDEX,
+        FASTQ_CHIP,
+        FASTQ_INPUT

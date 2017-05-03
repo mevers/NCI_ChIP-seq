@@ -11,8 +11,10 @@ rule merge_simul_fastqc:
     input:
         expand(join(config["rawdir"],
             "simul/{version}/{chr}/reads_{{ID}}_{{rep}}_{{pair}}.fastq.gz"),
-            version = config["reference"]["version"],
-            chr = config["reference"]["seqs"].keys())
+            version = [x for x in config["reference"].keys()],
+            chr = [ y \
+                        for x in config["reference"].keys() \
+                            for y in config["reference"][x].keys()])
     output:
         join(config["rawdir"], "simul/reads_{ID}_{rep}_{pair}.fastq.gz")
     threads: 1
