@@ -33,7 +33,7 @@ REF = expand(join(config["refdir"], "{path}.fa.gz"),
             for y in config["reference"][x].keys()])
 
 # Target: extracted reference sequences
-FASTAS = expand("{refdir}/{version}/{chr}.fa",
+FASTAS = expand("{refdir}/{version}/decompressed/{chr}.fa",
                 refdir = config["refdir"],
                 version = [x for x in config["reference"].keys()],
                 chr = [ y \

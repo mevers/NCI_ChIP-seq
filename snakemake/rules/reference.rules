@@ -59,7 +59,7 @@ rule decompress_reference:
     input:
         FASTAs = rules.download_reference.output
     output:
-        "{refdir}/{version}/{chr}.fa"
+        "{refdir}/{version}/decompressed/{chr}.fa"
     params:
         cmd = "gzip"
     shell:
@@ -70,7 +70,7 @@ rule decompress_reference:
 rule bowtie2_build_index:
     version: "1.0"
     input:
-        FASTAs = lambda wildcards: ",".join(glob.glob("".join((config["refdir"], ''.join([x for x in config["reference"].keys()]), "/*.fa"))))
+        FASTAs = lambda wildcards: ",".join(glob.glob("".join((config["refdir"], ''.join([x for x in config["reference"].keys()]), "/decompressed/*.fa"))))
         #FASTAs = lambda wildcards: ",".join(glob.glob("".join(("/home/sebastian/Development/Collaborations/NCI_ChIP-seq/", "ref", "/", "GRCh38", "/*.fa"))))
     output:
         "{indexdir}{index}.1.bt2"
