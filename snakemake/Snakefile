@@ -83,4 +83,6 @@ include: "rules/fastq.rules"
 # Input fastq files
 rule all:
     input:
-        BTINDEX
+        BTINDEX,
+        FASTQ_CHIP,
+        FASTQ_INPUT

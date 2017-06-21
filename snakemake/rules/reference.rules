@@ -73,12 +73,12 @@ rule bowtie2_build_index:
         FASTAs = lambda wildcards: ",".join(glob.glob("".join((config["refdir"], ''.join([x for x in config["reference"].keys()]), "/decompressed/*.fa"))))
         #FASTAs = lambda wildcards: ",".join(glob.glob("".join(("/home/sebastian/Development/Collaborations/NCI_ChIP-seq/", "ref", "/", "GRCh38", "/*.fa"))))
     output:
-        "{indexdir}{index}.1.bt2"
+        "{indexdir}/{index}.1.bt2"
     params:
         cmd = config["bowtie2-build"]["cmd"],
     log:
         "logs/bowtie2_build_index_{index}.log"
     shell:
         """
-            {params.cmd} {input.FASTAs} {wildcards.indexdir}{wildcards.index}
+            {params.cmd} {input.FASTAs} {wildcards.indexdir}/{wildcards.index}
         """
